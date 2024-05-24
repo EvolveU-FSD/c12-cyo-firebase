@@ -1,6 +1,7 @@
 import React from 'react';
 import { initializeApp } from 'firebase/app';
 import {getAuth} from 'firebase/auth'; 
+import {getFirestore} from 'firebase/firestore'; 
 
 export const FirebaseContext = React.createContext();
 
@@ -17,12 +18,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); 
+const db = getFirestore(app); 
 
 const FirebaseProvider = (props) => {
   const children = props.children;
   console.log(`FirebaseProvider: children: `, children);
  
-  const theValues = { app, auth };
+  const theValues = { app, auth, db };
 
   return (
     <FirebaseContext.Provider value={theValues}>
